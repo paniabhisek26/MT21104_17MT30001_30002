@@ -1,4 +1,4 @@
-function [ im_enhanced,enhancement_lut,best_fitness,pheromone_map,best_chromosome,fitness_per_iteration,last_enhancing_part,elapsed_time ] = imenhance( im_inputt,iteration_num,sa_disable )
+function [ im_enhanced,enhancement_lut,best_fitness,pheromone_map,best_chromosome,fitness_per_iteration,last_enhancing_part,elapsed_time ] = imenhance( inputt,iteration_num,sa_disable )
 %[Output Image,TF,Best Fitness,Pheromone Map,Best Chromosome,Fitness per Iteration,
 %Last Enhancing Part,Elapsed Time]=imenhance(Input Image, Iteration Numbers, 'no_sa')
 %Function takes input image, number of interations & a string which
@@ -22,7 +22,7 @@ tic;
 
 %global declarations
 global im_input min_input_intensity max_input_intensity min_input_intensity_plus_1 max_input_intensity_minus_1 relative_input_range;
-im_input=im_inputt;
+im_input=inputt;
 
 %set random stream
 get_clock=clock;
@@ -32,10 +32,10 @@ RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(25000000*get_clock(
 %%%%%Input-Output Arguments Checking Part
 
 %set default value of iterationnum
-if nargin==1
+if narg==1
     iteration_num=100;
     sa_disable='sa';    %keeps SA enabled
-elseif nargin==2
+elseif narg==2
     sa_disable='sa';    %keeps SA enabled
 end
 
@@ -43,7 +43,7 @@ end
 iteration_num=round(iteration_num);
 
 %check number of inputs & outputs
-narginchk(1,3);
+nargchk(1,3);
 nargoutchk(1,8);
 
 %check correction of inputs class
@@ -73,10 +73,6 @@ min_input_intensity_plus_1=min_input_intensity+1;
 max_input_intensity_minus_1=max_input_intensity-1;
 relative_input_range=(max_input_intensity-min_input_intensity)/255;
 
-%show original image
-%figure,imshow(im_input);
-%title('Original Image');
-%drawnow;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%Fitness Function Estimation Part
